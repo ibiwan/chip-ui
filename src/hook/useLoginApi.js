@@ -8,10 +8,7 @@ const isValid = () => {
     const { username: tokenUsername } = jwt_decode(token)
 
     return username === tokenUsername
-  } catch (e) {
-    console.error("couldn't validate token 1", e)
-    return false
-  }
+  } catch (e) { return false; }
 }
 
 const earlyExpiry = (token) => {
@@ -23,11 +20,7 @@ const earlyExpiry = (token) => {
 
     return { delay, stale }
   }
-  catch (e) {
-    console.error("couldn't validate token 2", e)
-
-    return false
-  }
+  catch (e) { return false; }
 }
 
 const isFresh = () => {
@@ -84,11 +77,9 @@ const submitLoginToApi = async () => {
   }
 }
 
-export const useLogin = () => {
+export const useLoginApi = () => {
   const [token, setToken] = useState(null)
   const [needRefresh, setNeedRefresh] = useState(false)
-
-  const loggedIn = token !== null
 
   const logout = useCallback(() => {
     clearLPT()
@@ -114,7 +105,7 @@ export const useLogin = () => {
   }, [])
 
   const loginToApi = useCallback(async () => {
-    const { token: newToken } = await submitLoginToApi()
+    const { token: newToken } = await submitLoginToApi() ?? {}
     newToken ? loginSuccess(newToken) : logout()
   }, [loginSuccess, logout])
 
@@ -123,9 +114,9 @@ export const useLogin = () => {
     isValid() ? loginToApi() : logout()
   }, [logout, loginToApi])
 
-  const handleLoginForm = useCallback((username, password) => {
+  const handleLoginForm = useCallback(async (username, password) => {
     setLPT({ username, password })
-    loginToApi()
+    await loginToApi()
   }, [loginToApi])
 
   const appStart = useCallback(() => {
@@ -141,7 +132,7 @@ export const useLogin = () => {
 
   return {
     token,
-    loggedIn,
+    loggedIn: !!token,
     handleLoginForm,
     logout
   }

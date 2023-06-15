@@ -1,17 +1,15 @@
 import { useLazyQuery, useMutation, useQuery } from '@apollo/client';
 
-export const useGraphqlApi = (token) => {
+export const useGraphqlApi = () => {
   const useAuthedQuery = (query) => {
     return useQuery(
       query,
-      { context: { token } }
     )
   }
 
   const useAuthedLazyQuery = (query) => {
     return useLazyQuery(
       query,
-      { context: { token }, }
     )
   }
 
@@ -19,7 +17,6 @@ export const useGraphqlApi = (token) => {
     return useMutation(
       mutationRequest,
       {
-        context: { token },
         refetchQueries: dependentGets.map(query => ({ query }))
       }
     )

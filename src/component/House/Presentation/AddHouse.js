@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 export const AddHouse = (props) => {
-  const {addHouse} = props
+  const { handleCreateHouse } = props
   const [name, setName] = useState('')
 
   const handleNameChange = (event) => {
@@ -9,9 +9,8 @@ export const AddHouse = (props) => {
   }
   const submit = (event) => {
     if (event.key === 'Enter') {
-      if(!name){return}
-      console.log("submit create with name", { name })
-      addHouse(name)
+      if (!name) { return }
+      handleCreateHouse(name)
     }
   }
 

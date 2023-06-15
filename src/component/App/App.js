@@ -1,34 +1,33 @@
-import { Logout } from 'component/Logout/Logout';
 import './App.css';
 
-import { Houses } from 'component/Houses/Houses';
-import { Login } from 'component/Player/Login';
-import { Player } from 'component/Player/Player';
-import { LoginContext } from 'context/login';
+import { useLoginApi } from 'hook/useLoginApi';
 
-import { useLogin } from 'hook/useLoginApi';
+import { Houses } from 'component/House/Houses';
+import { Logout } from 'component/Player/Presentation';
+import { Login } from 'component/Player/Login';
+import { CurrentPlayer } from 'component/Player/Player/CurrentPlayer.js';
+import { Players } from 'component/Player/Players/Players.js';
 
 function App() {
-  const { token, loggedIn, handleLoginForm, logout } = useLogin()
+  const { loggedIn, handleLoginForm, logout } = useLoginApi()
 
   return (
-    <LoginContext.Provider value={token}>
-      <div className="App">
-        <header className="App-header">
-          {!loggedIn && <>
-            <div>Login</div>
-            <Login login={handleLoginForm} />
-          </>
-          }
-          {loggedIn && <>
-            <Logout logout={logout} />
-            <Player />
-            <Houses />
-          </>
-          }
-        </header>
-      </div>
-    </LoginContext.Provider>
+    <div className="App">
+      <header className="App-header">
+        {!loggedIn && <>
+          <div>Login</div>
+          <Login handleLoginForm={handleLoginForm} />
+        </>
+        }
+        {loggedIn && <>
+          <Logout logout={logout} />
+          <CurrentPlayer />
+          <Players />
+          <Houses />
+        </>
+        }
+      </header>
+    </div>
   );
 }
 
