@@ -1,14 +1,9 @@
-import { apolloClient } from 'context/graphql.js';
-import { GET_PLAYERS, GET_CURRENT_USER } from 'gql/queries.js';
-
-export const fetchCurrentUserFromApi = async () => {
-  const result = await apolloClient.query({ query: GET_CURRENT_USER })
-  console.log({ result })
-  return result.data.getCurrentPlayer
-}
+import { apolloClient } from 'context/graphql';
+import { GET_PLAYERS } from 'gql/queries';
 
 export const fetchPlayersFromApi = async () => {
-  const result = await apolloClient.query({ query: GET_PLAYERS })
-  console.log({ result })
-  return result.data.getAllPlayers
+  try {
+    const result = await apolloClient.query({ query: GET_PLAYERS })
+    return result.data.getAllPlayers
+  } catch (e) { console.error('issue fetching player list from api', e) }
 }

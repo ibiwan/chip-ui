@@ -1,12 +1,12 @@
 import { createStore } from 'satcheljs';
 
-import '../mutators/playerMutators.js'
-import '../orchestrators/playerOrchestrators.js'
+// need to import to activate/execute file contents
+import '../orchestrators/playerOrchestrators'
+import '../mutators/playerMutators'
 
-export const getUserStore = createStore(
-  'userstore',
+export const getPlayerStore = createStore(
+  'playerStore',
   {
-    currentUser: null,
     players: [],
   }
 )

@@ -1,3 +1,5 @@
-import { getHouseStore } from 'state/stores/houseStore.js';
+import { getHouseStore } from 'state/stores/houseStore';
 
 export const selectHouses = () => getHouseStore().houses
+
+export const selectHouseListMode = () => getHouseStore().houseListMode

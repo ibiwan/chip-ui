@@ -1,13 +1,8 @@
 import { mutator } from 'satcheljs';
 
-import { setPlayers, setCurrentUser } from 'state/actions/playerActions.js';
-import { getUserStore } from 'state/stores/playerStore.js';
-
-mutator(setCurrentUser, (actionMessage) => {
-  getUserStore().currentUser = actionMessage.user
-})
+import { getPlayerStore } from 'state/stores/playerStore';
+import { setPlayers } from 'state/actions/playerActions';
 
 mutator(setPlayers, (actionMessage) => {
-  console.log({ actionMessage })
-  getUserStore().players = actionMessage.players
+  getPlayerStore().players = actionMessage.players
 })

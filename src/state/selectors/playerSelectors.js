@@ -1,5 +1,3 @@
-import { getUserStore } from 'state/stores/playerStore.js'
+import { getPlayerStore } from 'state/stores/playerStore'
 
-export const selectCurrentUser = () => getUserStore().currentUser
-
-export const selectPlayers = () => getUserStore().players
+export const selectPlayers = () => getPlayerStore().players

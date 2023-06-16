@@ -1,27 +1,35 @@
+import { observer } from 'mobx-react';
+import { useEffect } from 'react';
+
 import './App.css';
 
-import { useLoginApi } from 'hook/useLoginApi';
+import { selectIsLoggedIn } from 'state/selectors/userSelectors';
+import { reloadLogin } from 'state/actions/userActions';
 
-import { Houses } from 'component/House/Houses';
-import { Logout } from 'component/Player/Presentation';
-import { Login } from 'component/Player/Login';
-import { CurrentPlayer } from 'component/Player/Player/CurrentPlayer.js';
-import { Players } from 'component/Player/Players/Players.js';
+import { Houses } from 'component/House';
 
-function App() {
-  const { loggedIn, handleLoginForm, logout } = useLoginApi()
+import {
+  Login,
+  Logout,
+  Players,
+  CurrentUser,
+} from 'component/Player';
+
+function AppInner() {
+  useEffect(() => { reloadLogin() }, [])
+  const loggedIn = selectIsLoggedIn()
 
   return (
     <div className="App">
       <header className="App-header">
         {!loggedIn && <>
           <div>Login</div>
-          <Login handleLoginForm={handleLoginForm} />
+          <Login />
         </>
         }
         {loggedIn && <>
-          <Logout logout={logout} />
-          <CurrentPlayer />
+          <Logout />
+          <CurrentUser />
           <Players />
           <Houses />
         </>
@@ -31,4 +39,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(AppInner);

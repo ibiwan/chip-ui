@@ -1,19 +1,14 @@
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
-import { fetchCurrentUser } from 'state/actions/playerActions.js'
-import { selectCurrentUser } from 'state/selectors/playerSelectors.js'
 
+import { selectCurrentUser } from 'state/selectors/userSelectors'
+import { fetchCurrentUser } from 'state/actions/userActions'
 
-const CurrentPlayerInner = () => {
-  console.log("current")
-
+const CurrentUserInner = () => {
   useEffect(() => { fetchCurrentUser() }, [])
-
   const currentUser = selectCurrentUser()
 
   if(!currentUser){return <></>}
-
-  console.log({ currentUser })
 
   return <div className="card">
     <div>Current Player</div>
@@ -25,4 +20,4 @@ const CurrentPlayerInner = () => {
   </div>
 }
 
-export const CurrentPlayer = observer(CurrentPlayerInner)
+export const CurrentUser = observer(CurrentUserInner)

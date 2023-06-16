@@ -12,6 +12,14 @@ mutation CreateHouse($createHouseInput: CreateHouseInput!) {
   }
 }`
 
+export const EDIT_HOUSE = gql`
+mutation EditHouse($editHouseInput:EditHouseInput!){
+  editHouse(editHouseInput:$editHouseInput){
+    id name owner {id username}
+  }
+} 
+`
+
 export const DELETE_HOUSE = gql`
 mutation DeleteHouse($houseId: Int!) {
   deleteHouse(houseId: $houseId)
@@ -30,3 +38,11 @@ query CurrentUser {
     isAdmin
   }
 }`
+
+export const INVITE_PLAYER_TO_HOUSE = gql`
+mutation InvitePlayerToHouse($invitePlayerToHouseInput:InvitePlayerToHouseInput!){
+  invitePlayerToHouse(invitePlayerToHouseInput:$nvitePlayerToHouseInput){
+    id username invite {house{id} status}
+  }
+}
+`
